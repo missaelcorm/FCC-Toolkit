@@ -10,7 +10,7 @@ def getVars(exp):
     nvars = len(nvars)
 
     return nvars
-
+#Holaaaa
 def formatExp(exp):
     for letra in exp:
         if '^' in exp:
