@@ -62,78 +62,12 @@ def setVars(vars, arr):
 
 def evalExp(exp, arr, vars):
     expTemp = exp
-    nvars = len(vars)
     for i in range(len(arr)):
-        """if nvars == 1:
-            expTemp = expTemp.replace('p', arr[i][0])
-        elif nvars == 2:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            #expTemp = formatExp(expTemp)
-        elif nvars == 3:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            #expTemp = formatExp(expTemp)
-        elif nvars == 4:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            #expTemp = formatExp(expTemp)
-        elif nvars == 5:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            expTemp = expTemp.replace('t', arr[i][4])
-            #expTemp = formatExp(expTemp)
-        elif nvars == 6:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            expTemp = expTemp.replace('t', arr[i][4])
-            expTemp = expTemp.replace('u', arr[i][5])
-        elif nvars == 7:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            expTemp = expTemp.replace('t', arr[i][4])
-            expTemp = expTemp.replace('u', arr[i][5])
-            expTemp = expTemp.replace('w', arr[i][6])
-        elif nvars == 8:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            expTemp = expTemp.replace('t', arr[i][4])
-            expTemp = expTemp.replace('u', arr[i][5])
-            expTemp = expTemp.replace('w', arr[i][6])
-            expTemp = expTemp.replace('x', arr[i][7])
-        elif nvars == 9:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            expTemp = expTemp.replace('t', arr[i][4])
-            expTemp = expTemp.replace('u', arr[i][5])
-            expTemp = expTemp.replace('w', arr[i][6])
-            expTemp = expTemp.replace('x', arr[i][7])
-            expTemp = expTemp.replace('y', arr[i][8])
-        elif nvars == 10:
-            expTemp = expTemp.replace('p', arr[i][0])
-            expTemp = expTemp.replace('q', arr[i][1])
-            expTemp = expTemp.replace('r', arr[i][2])
-            expTemp = expTemp.replace('s', arr[i][3])
-            expTemp = expTemp.replace('t', arr[i][4])
-            expTemp = expTemp.replace('u', arr[i][5])
-            expTemp = expTemp.replace('w', arr[i][6])
-            expTemp = expTemp.replace('x', arr[i][7])
-            expTemp = expTemp.replace('y', arr[i][8])
-            expTemp = expTemp.replace('z', arr[i][9])
-        """
+        j=0
+        for var in vars:
+            expTemp = expTemp.replace(var, arr[i][j])
+            j+=1
+
         expTemp = formatExp(expTemp)
 
         arr[i].append(eval(expTemp))
