@@ -1,5 +1,6 @@
 import sys
 import numpy as np
+from prettytable import PrettyTable
 
 def getVars(exp):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
@@ -73,6 +74,13 @@ def evalExp(exp, arr, vars):
 
         arr[i].append(eval(expTemp))
         expTemp = exp
+
+    for i in range(len(arr)):
+        for j in range(len(arr[i])):
+            if arr[i][j] == '1' or arr[i][j] == 1:
+                arr[i][j]='V'
+            elif arr[i][j] == '0' or arr[i][j] == 0:
+                arr[i][j]='F'
 
     return arr
 
