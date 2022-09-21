@@ -77,9 +77,9 @@ def evalExp(exp, arr, vars):
 
     for i in range(len(arr)):
         for j in range(len(arr[i])):
-            if arr[i][j] == '1' or arr[i][j] == 1:
-                arr[i][j]='V'
-            elif arr[i][j] == '0' or arr[i][j] == 0:
+            if arr[i][j] == '1' or arr[i][j] == 1 or arr[i][j] == True:
+                arr[i][j]='T'
+            elif arr[i][j] == '0' or arr[i][j] == 0 or arr[i][j] == False:
                 arr[i][j]='F'
 
     return arr
