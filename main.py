@@ -21,11 +21,13 @@ def formatExp(exp):
             exp = exp.replace('^', ' and ')
         if 'v' in exp:
             exp = exp.replace('v', ' or ')
+            
         if '~' in exp:
             exp = exp.replace('~', ' not ')
         if '->' in exp:
             index = exp.find('->')
             exp = exp.replace('->', ') or ')
+            
             exp = exp[:index-1] + ' (not ' + exp[index-1:]
     print(exp)
     return exp
@@ -43,7 +45,6 @@ def assignValues(nvars):
                 tempMatrix.append('1')
             elif digit == '0':
                 tempMatrix.append('0')
-                [1,0,1]
         #tempMatrix.append(eval(f"{tempMatrix[0]} and {tempMatrix[1]} and {tempMatrix[2]}"))
         matrix.append(tempMatrix)
 
@@ -75,6 +76,21 @@ def evalExp(exp, arr, vars):
 
     return arr
 
+def arrayToTable(arr, fieldNames):
+    table = PrettyTable()
+    table.add_rows(arr)
+    table.field_names = fieldNames
+
+    return table
+
+def fieldNames(listVars, exp):
+    fields = []
+    for var in listVars:
+        fields.append(var)
+    fields.append(exp)
+    
+    return fields
+
 
 args = sys.argv
 exp = args[1]
@@ -91,7 +107,11 @@ arr = assignValues(len(varse))
 #dictVars = setVars(varse, arr)
 evExp = evalExp(exp, arr, varse)
 
-print(np.array(evExp))
+fields = fieldNames(varse, exp)
+table = arrayToTable(evExp, fields)
+
+print(table)
+#print(np.array(evExp))
 
 #print(varse)
 #print(dictVars)
