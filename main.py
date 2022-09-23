@@ -225,5 +225,101 @@ print(table)
     return expStr
 
 #print(eval(exp))
+def separator(exp, operator):
+    operators = ["^", "v", "~", ">", "-"]
+    vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
 
-#print(arr)
+#print(arr)    OneFlag = True
+    partTwo = []
+    TwoFlag = True
+
+    pos = exp.index(operator)
+
+    # Part One
+    while(OneFlag):
+        if exp[pos-1] in vars:
+            if exp[pos-2] == '~':
+                partOne.insert(0, exp[pos-1])
+                partOne.insert(0, exp[pos-2])
+                OneFlag = False
+            else:
+                partOne.insert(0, exp[pos-1])
+                OneFlag = False
+        elif exp[pos-1] == ')':
+            chPos = 2
+            partOne.insert(0, ')')
+            parentCounter = 1
+
+            while(parentCounter!=0):
+                if exp[pos-chPos] == ')':
+                    partOne.insert(0, exp[pos-chPos])
+                    chPos+=1
+                    parentCounter+=1
+                elif exp[pos-chPos] == '(':
+                    partOne.insert(0, exp[pos-chPos])
+                    chPos+=1
+                    parentCounter-=1
+                else:
+                    partOne.insert(0, exp[pos-chPos])
+                    chPos+=1
+
+            if exp[pos-chPos] == '~':
+                partOne.insert(0, exp[pos-chPos])
+                OneFlag = False
+            else:
+                OneFlag = False
+
+    # Part two
+    while(TwoFlag):
+        if exp[pos+1] in vars:
+            partTwo.append(exp[pos+1])
+            TwoFlag = False
+        elif exp[pos+1] == '~':
+            partTwo.append(exp[pos+1])
+            if exp[pos+2] in vars:
+                partTwo.append(exp[pos+2])
+                TwoFlag = False
+            elif exp[pos+1] == '(':
+                parentCounter = 1
+                chPos = 2
+                partTwo.append(exp[pos+1])
+
+                while(parentCounter!=0):
+                    if exp[pos+chPos] == '(':
+                        partTwo.append(exp[pos+chPos])
+                        chPos+=1
+                        parentCounter+=1
+                    elif exp[pos+chPos] == ')':
+                        partTwo.append(exp[pos+chPos])
+                        chPos+=1
+                        parentCounter-=1
+                    else:
+                        partTwo.append(exp[pos+chPos])
+                        chPos+=1
+
+                TwoFlag = False
+        elif exp[pos+1] == '(':
+            partTwo.append(exp[pos+1])
+            parentCounter = 1
+            chPos = 2
+
+            while(parentCounter!=0):
+                if exp[pos+chPos] == '(':
+                    partTwo.append(exp[pos+chPos])
+                    chPos+=1
+                    parentCounter+=1
+                elif exp[pos+chPos] == ')':
+                    partTwo.append(exp[pos+chPos])
+                    chPos+=1
+                    parentCounter-=1
+                else:
+                    partTwo.append(exp[pos+chPos])
+                    chPos+=1
+
+                TwoFlag = False
+    lenExp = len(partOne) + len(partTwo) + 1
+    posDif = len(partOne)
+    return partOne, partTwo, lenExp, posDif
+
+
+def main():
