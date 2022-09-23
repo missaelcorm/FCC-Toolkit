@@ -210,14 +210,19 @@ evExp = evalExp(exp, arr, varse)
 
 fields = fieldNames(varse, exp)
 table = arrayToTable(evExp, fields)
+def listToString(listExp):
+    expStr = ""
 
 print(table)
 #print(np.array(evExp))
+    for element in listExp:
+        expStr+=element
 
 #print(varse)
 #print(dictVars)
 #print(arr)
 #print(exp)
+    return expStr
 
 #print(eval(exp))
 
