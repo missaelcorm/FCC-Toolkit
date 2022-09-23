@@ -1,9 +1,11 @@
 import sys
 from prettytable import PrettyTable
 
+#Prints Help Info
 def printHelp():
     print('Usage: python main.py "[expression]" ')
 
+#Get vars from an expression "p^qvr^p" -> ['p', 'q', 'r']
 def getVars(exp):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
     listVars = []
@@ -14,6 +16,8 @@ def getVars(exp):
 
     return listVars
 
+#Whith the number of vars in the expression, creates a matrix 
+#with all the possibilites (2^nvars) that the vars can be in each case
 def assignValues(nvars):
     matrix = []
     posibilidades = 2**nvars
@@ -34,6 +38,13 @@ def assignValues(nvars):
 
     return matrix
 
+#Receives the expression, matrix and the vars to replace
+#on the expression(p^qvr) the vars(p,q,r) to the values on the matrix (0s and 1s)
+#and then do the eval() function to get the result in each case, finally append 
+#the result to the matrix
+#| p | q | r | p^qvr |
+#----------------------
+#| 1 | 0 | 1 |   1   |
 def evalExp(exp, arr, vars):
     expTemp = exp
     for i in range(len(arr)):
@@ -61,6 +72,9 @@ def evalExp(exp, arr, vars):
 
     return arr
 
+#Using PrettyTable library, receives the matrix
+#and the fieldNames (vars and expression) to
+#print as table the matrix
 def arrayToTable(arr, fieldNames):
     table = PrettyTable()
     table.add_rows(arr)
@@ -68,6 +82,8 @@ def arrayToTable(arr, fieldNames):
 
     return table
 
+#Gets the field names from the list of vars
+#and the expression that the user puts
 def fieldNames(listVars, exp):
     fields = []
     for var in listVars:
@@ -76,6 +92,7 @@ def fieldNames(listVars, exp):
     
     return fields
 
+#Function to do implication
 def implication(partOne, partTwo):
     imp = ['(', '~', 'v', ')']
 
@@ -86,6 +103,7 @@ def implication(partOne, partTwo):
 
     return imp
 
+#Function to do double implication
 def doubleImplication(partOne, partTwo):
     dimp = ["(","~","v",")","^","(","~","v",")"]
 
@@ -100,12 +118,15 @@ def doubleImplication(partOne, partTwo):
     
     return dimp
 
+#Converts the expression string into a list
 def listExpression(exp):
     exp = exp.replace(" ", "")
     listExp = list(exp)
     
     return listExp
 
+#As the name says, look for (^, v, ~)
+#and converts to (and, or, not)
 def lookForSimpleOperators(listExp):
 
     while(('^' in listExp) or ('v' in listExp) or ('~' in listExp)):
@@ -121,6 +142,8 @@ def lookForSimpleOperators(listExp):
 
     return listExp
 
+#Looks for double implications and implications
+#and converts in terms of (and, or and not)
 def lookForComplexOperators(listExp):
     j=1
 
@@ -159,12 +182,16 @@ def lookForComplexOperators(listExp):
 
     return listExp
 
+#Adds spaces between elements on a list
+#['Hi', 'there'] -> ['Hi', ' ', 'there']
 def spacer(listExp):
     for i in range(1, (len(listExp)*2)-1, 2):
         listExp.insert(i, " ")
 
     return listExp
 
+#Converts the elements on a list into a string
+#['Hi', ' ', 'there'] -> 'Hi there'
 def listToString(listExp):
     expStr = ""
 
@@ -173,6 +200,13 @@ def listToString(listExp):
 
     return expStr
 
+#This receives an expression and an operator, so divides 
+#into the content at left and right from the operator index.
+#operator = '^'
+#expression = "p^(qvr)"
+#The result is gonna be:
+#partOne = 'p'
+#partTwo = '(qvr)
 def separator(exp, operator):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
 
@@ -269,7 +303,7 @@ def separator(exp, operator):
     posDif = len(partOne)
     return partOne, partTwo, lenExp, posDif
 
-
+#Main() function where all magic happen
 def main():
     args = sys.argv
 
@@ -301,6 +335,10 @@ def main():
 
     else:
         printHelp()
+
+#Simple try and except, if fails prints the help info 
+#about usage and syntax using printHelp(), if not 
+#main() worked
 
 try:
     main()
