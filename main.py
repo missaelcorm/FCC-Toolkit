@@ -356,3 +356,7 @@ def main():
     else:
         printHelp()
 
+try:
+    main()
+except:
+    printHelp()
