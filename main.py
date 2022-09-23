@@ -120,6 +120,20 @@ def implication(partOne, partTwo):
 
     return imp
 
+def doubleImplication(partOne, partTwo):
+    dimp = ["(","~","v",")","^","(","~","v",")"]
+
+    for i in range(len(partOne)):
+        dimp.insert(8+i, partOne[i])
+    for i in range(len(partTwo)):
+        dimp.insert(7+i, partTwo[i])
+    for i in range(len(partTwo)):
+        dimp.insert(3+i, partTwo[i])
+    for i in range(len(partOne)):
+        dimp.insert(2+i, partOne[i])
+    
+    return dimp
+
 
 args = sys.argv
 exp = args[1]
