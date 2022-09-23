@@ -142,9 +142,20 @@ def listExpression(exp):
 
 args = sys.argv
 exp = args[1]
+def lookForSimpleOperators(listExp):
 
-#exp = "~((p->q)^(rvs)^((~s->~t)^(~qvs)^(~s)^((~p^r->u)^(wvt)->u^w"#args[1]
+    while(('^' in listExp) or ('v' in listExp) or ('~' in listExp)):
+        if '^' in listExp:
+            listExp.insert(listExp.index('^'), 'and')
+            listExp.remove('^')
+        elif 'v' in listExp:
+            listExp.insert(listExp.index('v'), 'or')
+            listExp.remove('v')
+        elif '~' in listExp:
+            listExp.insert(listExp.index('~'), 'not')
+            listExp.remove('~')
 
+    return listExp
 
 p=0
 q=1
