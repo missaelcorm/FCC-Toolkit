@@ -134,6 +134,11 @@ def doubleImplication(partOne, partTwo):
     
     return dimp
 
+def listExpression(exp):
+    exp = exp.replace(" ", "")
+    listExp = list(exp)
+    
+    return listExp
 
 args = sys.argv
 exp = args[1]
