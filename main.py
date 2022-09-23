@@ -159,6 +159,44 @@ def lookForSimpleOperators(listExp):
 
 p=0
 q=1
+def lookForComplexOperators(listExp):
+    j=1
+
+    while j<len(listExp):
+        if listExp[j] == '>':
+            partOne, partTwo, lenExp, posDif = separator(listExp, '>')
+
+            product = implication(partOne, partTwo)
+
+            posOp = listExp.index('>')
+            posOp -= posDif
+            for i in range(lenExp):
+                listExp.__delitem__(posOp)
+            
+            for k in range(len(product)):
+                listExp.insert(posOp+k, product[k])
+            
+            j -= posDif
+        elif listExp[j] == '-':
+            partOne, partTwo, lenExp, posDif = separator(listExp, '-')
+
+            product = doubleImplication(partOne, partTwo)
+
+            posOp = listExp.index('-')
+            posOp -= posDif
+
+            for i in range(lenExp):
+                listExp.__delitem__(posOp)
+            
+            for k in range(len(product)):
+                listExp.insert(posOp+k, product[k])
+            
+            j -= posDif
+        else:
+            j+=1
+
+    return listExp
+
 
 varse = getVars(exp)
 #exp = formatExp(exp)
