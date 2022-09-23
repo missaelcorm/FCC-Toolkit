@@ -110,6 +110,16 @@ def fieldNames(listVars, exp):
     
     return fields
 
+def implication(partOne, partTwo):
+    imp = ['(', '~', 'v', ')']
+
+    for i in range(len(partTwo)):
+        imp.insert(3+i, partTwo[i])
+    for i in range(len(partOne)):
+        imp.insert(2+i, partOne[i])
+
+    return imp
+
 
 args = sys.argv
 exp = args[1]
