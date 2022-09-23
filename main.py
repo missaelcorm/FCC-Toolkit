@@ -2,6 +2,9 @@ import sys
 import numpy as np
 from prettytable import PrettyTable
 
+def printHelp():
+    print('Usage: python main.py "[expression]" ')
+
 def getVars(exp):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
     listVars = []
