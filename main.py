@@ -1,5 +1,4 @@
 import sys
-import numpy as np
 from prettytable import PrettyTable
 
 def printHelp():
@@ -12,29 +11,8 @@ def getVars(exp):
         if letra in vars:
             listVars.append(str(letra))
     listVars =  list(dict.fromkeys(listVars))
-    #a^bva^cv~c
-    #[a, b, a, c, c]
-    #[a,b,c]
-    nvars = len(listVars)
 
     return listVars
-
-def formatExp(exp):
-    for letra in exp:
-        if '^' in exp:
-            exp = exp.replace('^', ' and ')
-        if 'v' in exp:
-            exp = exp.replace('v', ' or ')
-            
-        if '~' in exp:
-            exp = exp.replace('~', ' not ')
-        if '->' in exp:
-            index = exp.find('->')
-            exp = exp.replace('->', ') or ')
-            
-            exp = exp[:index-1] + ' (not ' + exp[index-1:]
-    print(exp)
-    return exp
 
 def assignValues(nvars):
     matrix = []
@@ -54,16 +32,7 @@ def assignValues(nvars):
 
     matrix = list(reversed(matrix))
 
-    arr = np.array(matrix)
-
     return matrix
-
-def setVars(vars, arr):
-
-    for j in range(len(arr)):
-        arr[j].append(eval(f"{arr[j][0]} or not {arr[j][1]}"))
-    print(np.array(arr))
-    return arr
 
 def evalExp(exp, arr, vars):
     expTemp = exp
@@ -78,9 +47,6 @@ def evalExp(exp, arr, vars):
             if 'nor' in expTemp:
                 expTemp = expTemp.replace('nor','not')
             j+=1
-
-        expTemp = formatExp(expTemp)
-
         
         #print(expTemp)
         arr[i].append(eval(expTemp))
@@ -140,8 +106,6 @@ def listExpression(exp):
     
     return listExp
 
-args = sys.argv
-exp = args[1]
 def lookForSimpleOperators(listExp):
 
     while(('^' in listExp) or ('v' in listExp) or ('~' in listExp)):
@@ -157,8 +121,6 @@ def lookForSimpleOperators(listExp):
 
     return listExp
 
-p=0
-q=1
 def lookForComplexOperators(listExp):
     j=1
 
@@ -201,35 +163,19 @@ def spacer(listExp):
     for i in range(1, (len(listExp)*2)-1, 2):
         listExp.insert(i, " ")
 
-varse = getVars(exp)
-#exp = formatExp(exp)
-arr = assignValues(len(varse))
-#dictVars = setVars(varse, arr)
-evExp = evalExp(exp, arr, varse)
     return listExp
 
-fields = fieldNames(varse, exp)
-table = arrayToTable(evExp, fields)
 def listToString(listExp):
     expStr = ""
 
-print(table)
-#print(np.array(evExp))
     for element in listExp:
         expStr+=element
 
-#print(varse)
-#print(dictVars)
-#print(arr)
-#print(exp)
     return expStr
 
-#print(eval(exp))
 def separator(exp, operator):
-    operators = ["^", "v", "~", ">", "-"]
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
 
-#print(arr)    OneFlag = True
     partOne = []
     OneFlag = True
     partTwo = []
