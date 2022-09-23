@@ -197,12 +197,16 @@ def lookForComplexOperators(listExp):
 
     return listExp
 
+def spacer(listExp):
+    for i in range(1, (len(listExp)*2)-1, 2):
+        listExp.insert(i, " ")
 
 varse = getVars(exp)
 #exp = formatExp(exp)
 arr = assignValues(len(varse))
 #dictVars = setVars(varse, arr)
 evExp = evalExp(exp, arr, varse)
+    return listExp
 
 fields = fieldNames(varse, exp)
 table = arrayToTable(evExp, fields)
