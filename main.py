@@ -230,6 +230,8 @@ def separator(exp, operator):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
 
 #print(arr)    OneFlag = True
+    partOne = []
+    OneFlag = True
     partTwo = []
     TwoFlag = True
 
@@ -323,3 +325,34 @@ def separator(exp, operator):
 
 
 def main():
+    args = sys.argv
+
+    if len(args) == 2:
+
+        exp = args[1]
+
+        vars = getVars(exp)
+
+        matrix = assignValues(len(vars))
+
+        expTemp = listExpression(exp)
+        #print('listExpression', expTemp)
+        expTemp = lookForComplexOperators(expTemp)
+        #print('lookForComplexOperators', expTemp)
+        expTemp = lookForSimpleOperators(expTemp)
+        #print('lookForSimpleOperators', expTemp)
+        expTemp = spacer(expTemp)
+        #print('spacer', expTemp)
+        expTemp = listToString(expTemp)
+        #print('listToString', expTemp)
+
+        evalExpression = evalExp(expTemp, matrix, vars)
+
+        tableFields = fieldNames(vars, exp)
+        table = arrayToTable(evalExpression, tableFields)
+
+        print(table)
+
+    else:
+        printHelp()
+
