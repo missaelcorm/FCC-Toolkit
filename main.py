@@ -71,10 +71,18 @@ def evalExp(exp, arr, vars):
         j=0
         for var in vars:
             expTemp = expTemp.replace(var, arr[i][j])
+            if 'o1' in expTemp:
+                expTemp = expTemp.replace('o1','or')
+            if 'o0' in expTemp:
+                expTemp = expTemp.replace('o0','or')
+            if 'nor' in expTemp:
+                expTemp = expTemp.replace('nor','not')
             j+=1
 
         expTemp = formatExp(expTemp)
 
+        
+        #print(expTemp)
         arr[i].append(eval(expTemp))
         expTemp = exp
 
