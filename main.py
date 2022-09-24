@@ -1,9 +1,15 @@
+import os
 import sys
 from prettytable import PrettyTable
 
+def cleanScreen():
+    if os.name == 'posix':
+        os.system('clear')
+    elif os.name == 'nt':
+        os.system('cls')
+
 #Prints Help Info
 def printHelp():
-    print('Usage: python main.py "[expression]" ')
     table = [[1, 'p'], 
             [2, 'p,q'], 
             [3, 'p,q,r'], 
@@ -355,7 +361,7 @@ def main():
 
         tableFields = fieldNames(vars, exp)
         table = arrayToTable(evalExpression, tableFields)
-
+        cleanScreen()
         print(table)
 
     else:
