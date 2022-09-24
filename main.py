@@ -41,10 +41,14 @@ def printHelp():
 #Get vars from an expression "p^qvr^p" -> ['p', 'q', 'r']
 def getVars(exp):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
+    operators = ['^', 'v', '~', '>', '-']
     listVars = []
     for letra in exp:
         if letra in vars:
             listVars.append(str(letra))
+        elif letra not in operators:
+            printHelp()
+            exit()
     listVars =  list(dict.fromkeys(listVars))
 
     return listVars
