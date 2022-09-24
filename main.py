@@ -28,7 +28,7 @@ def printHelp():
 #Get vars from an expression "p^qvr^p" -> ['p', 'q', 'r']
 def getVars(exp):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
-    operators = ['^', 'v', '~', '>', '-']
+    operators = ['^', 'v', '~', '>', '-', '(', ')']
     listVars = []
     for letra in exp:
         if letra in vars:
