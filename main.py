@@ -4,6 +4,31 @@ from prettytable import PrettyTable
 #Prints Help Info
 def printHelp():
     print('Usage: python main.py "[expression]" ')
+    table = [[1, 'p'], 
+            [2, 'p,q'], 
+            [3, 'p,q,r'], 
+            [4, 'p,q,r,s'], 
+            [5, 'p,q,r,s,t'], 
+            [6, 'p,q,r,s,t,u'], 
+            [7, 'p,q,r,s,t,u,w'], 
+            [8, 'p,q,r,s,t,u,w,x'], 
+            [9, 'p,q,r,s,t,u,w,x,y'], 
+            [10, 'p,q,r,s,t,u,w,x,y,z']]
+    varTable = PrettyTable()
+    varTable.add_rows(table)
+    varTable.field_names = ['# Variables', 'Variables']
+
+    cleanScreen()
+    print('Uso: python main.py "[expresion]" ')
+    print('Use unicamente estas variables: -  [p, q, r, s, t, u, w, x, y, z]')
+    print('Conjuncion: ----------------------------------------------- "^"')
+    print('Disyuncion: ----------------------------------------------- "v"')
+    print('Negacion: ------------------------------------------------- "~"')
+    print('Implicacion: ---------------------------------------------- ">"')
+    print('Doble Implicacion: ---------------------------------------- "-"')
+    print('---------------------------------------------------------------')
+    print('Nota: Es necesario usar las siguientes variables de acuerdo al \nnumero de variables a usar.')
+    print(varTable)
 
 #Get vars from an expression "p^qvr^p" -> ['p', 'q', 'r']
 def getVars(exp):
