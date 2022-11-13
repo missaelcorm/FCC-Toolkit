@@ -1,4 +1,5 @@
 from prettytable import PrettyTable
+from main import cleanScreen
 
 # Get vars from an expression "p^qvr^p" -> ['p', 'q', 'r']
 def getVars(exp):
