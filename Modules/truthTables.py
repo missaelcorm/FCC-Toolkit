@@ -13,16 +13,18 @@ def getVars(exp):
 
     return listVars
 
-#Whith the number of vars in the expression, creates a matrix 
-#with all the possibilites (2^nvars) that the vars can be in each case
+# Whith the number of vars in the expression, creates a matrix
+# with all the possibilites (2^nvars) that the vars can be in each case
+
+
 def assignValues(nvars):
     matrix = []
     posibilidades = 2**nvars
     hNumber = len(str(bin(posibilidades)[2:]))-1
-    
+
     for i in range(posibilidades):
         current_number = bin(i)[2:].zfill(hNumber)
-        tempMatrix = [] 
+        tempMatrix = []
         for digit in str(current_number):
             if digit == '1':
                 tempMatrix.append('1')
@@ -35,43 +37,47 @@ def assignValues(nvars):
 
     return matrix
 
-#Receives the expression, matrix and the vars to replace
-#on the expression(p^qvr) the vars(p,q,r) to the values on the matrix (0s and 1s)
-#and then do the eval() function to get the result in each case, finally append 
-#the result to the matrix
-#| p | q | r | p^qvr |
-#----------------------
-#| 1 | 0 | 1 |   1   |
+# Receives the expression, matrix and the vars to replace
+# on the expression(p^qvr) the vars(p,q,r) to the values on the matrix (0s and 1s)
+# and then do the eval() function to get the result in each case, finally append
+# the result to the matrix
+# | p | q | r | p^qvr |
+# ----------------------
+# | 1 | 0 | 1 |   1   |
+
+
 def evalExp(exp, arr, vars):
     expTemp = exp
     for i in range(len(arr)):
-        j=0
+        j = 0
         for var in vars:
             expTemp = expTemp.replace(var, arr[i][j])
             if 'o1' in expTemp:
-                expTemp = expTemp.replace('o1','or')
+                expTemp = expTemp.replace('o1', 'or')
             if 'o0' in expTemp:
-                expTemp = expTemp.replace('o0','or')
+                expTemp = expTemp.replace('o0', 'or')
             if 'nor' in expTemp:
-                expTemp = expTemp.replace('nor','not')
-            j+=1
-        
-        #print(expTemp)
+                expTemp = expTemp.replace('nor', 'not')
+            j += 1
+
+        # print(expTemp)
         arr[i].append(eval(expTemp))
         expTemp = exp
 
     for i in range(len(arr)):
         for j in range(len(arr[i])):
             if arr[i][j] == '1' or arr[i][j] == 1 or arr[i][j] == True:
-                arr[i][j]='T'
+                arr[i][j] = 'T'
             elif arr[i][j] == '0' or arr[i][j] == 0 or arr[i][j] == False:
-                arr[i][j]='F'
+                arr[i][j] = 'F'
 
     return arr
 
-#Using PrettyTable library, receives the matrix
-#and the fieldNames (vars and expression) to
-#print as table the matrix
+# Using PrettyTable library, receives the matrix
+# and the fieldNames (vars and expression) to
+# print as table the matrix
+
+
 def arrayToTable(arr, fieldNames):
     table = PrettyTable()
     table.add_rows(arr)
@@ -79,17 +85,21 @@ def arrayToTable(arr, fieldNames):
 
     return table
 
-#Gets the field names from the list of vars
-#and the expression that the user puts
+# Gets the field names from the list of vars
+# and the expression that the user puts
+
+
 def fieldNames(listVars, exp):
     fields = []
     for var in listVars:
         fields.append(var)
     fields.append(exp)
-    
+
     return fields
 
-#Function to do implication
+# Function to do implication
+
+
 def implication(partOne, partTwo):
     imp = ['(', '~', 'v', ')']
 
@@ -100,9 +110,11 @@ def implication(partOne, partTwo):
 
     return imp
 
-#Function to do double implication
+# Function to do double implication
+
+
 def doubleImplication(partOne, partTwo):
-    dimp = ["(","~","v",")","^","(","~","v",")"]
+    dimp = ["(", "~", "v", ")", "^", "(", "~", "v", ")"]
 
     for i in range(len(partOne)):
         dimp.insert(8+i, partOne[i])
@@ -112,21 +124,25 @@ def doubleImplication(partOne, partTwo):
         dimp.insert(3+i, partTwo[i])
     for i in range(len(partOne)):
         dimp.insert(2+i, partOne[i])
-    
+
     return dimp
 
-#Converts the expression string into a list
+# Converts the expression string into a list
+
+
 def listExpression(exp):
     exp = exp.replace(" ", "")
     listExp = list(exp)
-    
+
     return listExp
 
-#As the name says, look for (^, v, ~)
-#and converts to (and, or, not)
+# As the name says, look for (^, v, ~)
+# and converts to (and, or, not)
+
+
 def lookForSimpleOperators(listExp):
 
-    while(('^' in listExp) or ('v' in listExp) or ('~' in listExp)):
+    while (('^' in listExp) or ('v' in listExp) or ('~' in listExp)):
         if '^' in listExp:
             listExp.insert(listExp.index('^'), 'and')
             listExp.remove('^')
@@ -139,12 +155,14 @@ def lookForSimpleOperators(listExp):
 
     return listExp
 
-#Looks for double implications and implications
-#and converts in terms of (and, or and not)
-def lookForComplexOperators(listExp):
-    j=1
+# Looks for double implications and implications
+# and converts in terms of (and, or and not)
 
-    while j<len(listExp):
+
+def lookForComplexOperators(listExp):
+    j = 1
+
+    while j < len(listExp):
         if listExp[j] == '>':
             partOne, partTwo, lenExp, posDif = separator(listExp, '>')
 
@@ -154,10 +172,10 @@ def lookForComplexOperators(listExp):
             posOp -= posDif
             for i in range(lenExp):
                 listExp.__delitem__(posOp)
-            
+
             for k in range(len(product)):
                 listExp.insert(posOp+k, product[k])
-            
+
             j -= posDif
         elif listExp[j] == '-':
             partOne, partTwo, lenExp, posDif = separator(listExp, '-')
@@ -169,41 +187,47 @@ def lookForComplexOperators(listExp):
 
             for i in range(lenExp):
                 listExp.__delitem__(posOp)
-            
+
             for k in range(len(product)):
                 listExp.insert(posOp+k, product[k])
-            
+
             j -= posDif
         else:
-            j+=1
+            j += 1
 
     return listExp
 
-#Adds spaces between elements on a list
-#['Hi', 'there'] -> ['Hi', ' ', 'there']
+# Adds spaces between elements on a list
+# ['Hi', 'there'] -> ['Hi', ' ', 'there']
+
+
 def spacer(listExp):
     for i in range(1, (len(listExp)*2)-1, 2):
         listExp.insert(i, " ")
 
     return listExp
 
-#Converts the elements on a list into a string
-#['Hi', ' ', 'there'] -> 'Hi there'
+# Converts the elements on a list into a string
+# ['Hi', ' ', 'there'] -> 'Hi there'
+
+
 def listToString(listExp):
     expStr = ""
 
     for element in listExp:
-        expStr+=element
+        expStr += element
 
     return expStr
 
-#This receives an expression and an operator, so divides 
-#into the content at left and right from the operator index.
+# This receives an expression and an operator, so divides
+# into the content at left and right from the operator index.
 #operator = '^'
 #expression = "p^(qvr)"
-#The result is gonna be:
+# The result is gonna be:
 #partOne = 'p'
-#partTwo = '(qvr)
+# partTwo = '(qvr)
+
+
 def separator(exp, operator):
     vars = ['p', 'q', 'r', 's', 't', 'u', 'w', 'x', 'y', 'z']
 
@@ -215,7 +239,7 @@ def separator(exp, operator):
     pos = exp.index(operator)
 
     # Part One
-    while(OneFlag):
+    while (OneFlag):
         if exp[pos-1] in vars:
             if exp[pos-2] == '~':
                 partOne.insert(0, exp[pos-1])
@@ -229,18 +253,18 @@ def separator(exp, operator):
             partOne.insert(0, ')')
             parentCounter = 1
 
-            while(parentCounter!=0):
+            while (parentCounter != 0):
                 if exp[pos-chPos] == ')':
                     partOne.insert(0, exp[pos-chPos])
-                    chPos+=1
-                    parentCounter+=1
+                    chPos += 1
+                    parentCounter += 1
                 elif exp[pos-chPos] == '(':
                     partOne.insert(0, exp[pos-chPos])
-                    chPos+=1
-                    parentCounter-=1
+                    chPos += 1
+                    parentCounter -= 1
                 else:
                     partOne.insert(0, exp[pos-chPos])
-                    chPos+=1
+                    chPos += 1
 
             if exp[pos-chPos] == '~':
                 partOne.insert(0, exp[pos-chPos])
@@ -249,7 +273,7 @@ def separator(exp, operator):
                 OneFlag = False
 
     # Part two
-    while(TwoFlag):
+    while (TwoFlag):
         if exp[pos+1] in vars:
             partTwo.append(exp[pos+1])
             TwoFlag = False
@@ -263,18 +287,18 @@ def separator(exp, operator):
                 chPos = 2
                 partTwo.append(exp[pos+1])
 
-                while(parentCounter!=0):
+                while (parentCounter != 0):
                     if exp[pos+chPos] == '(':
                         partTwo.append(exp[pos+chPos])
-                        chPos+=1
-                        parentCounter+=1
+                        chPos += 1
+                        parentCounter += 1
                     elif exp[pos+chPos] == ')':
                         partTwo.append(exp[pos+chPos])
-                        chPos+=1
-                        parentCounter-=1
+                        chPos += 1
+                        parentCounter -= 1
                     else:
                         partTwo.append(exp[pos+chPos])
-                        chPos+=1
+                        chPos += 1
 
                 TwoFlag = False
         elif exp[pos+1] == '(':
@@ -282,23 +306,24 @@ def separator(exp, operator):
             parentCounter = 1
             chPos = 2
 
-            while(parentCounter!=0):
+            while (parentCounter != 0):
                 if exp[pos+chPos] == '(':
                     partTwo.append(exp[pos+chPos])
-                    chPos+=1
-                    parentCounter+=1
+                    chPos += 1
+                    parentCounter += 1
                 elif exp[pos+chPos] == ')':
                     partTwo.append(exp[pos+chPos])
-                    chPos+=1
-                    parentCounter-=1
+                    chPos += 1
+                    parentCounter -= 1
                 else:
                     partTwo.append(exp[pos+chPos])
-                    chPos+=1
+                    chPos += 1
 
                 TwoFlag = False
     lenExp = len(partOne) + len(partTwo) + 1
     posDif = len(partOne)
     return partOne, partTwo, lenExp, posDif
+
 
 def truthtable(expression):
     vars = getVars(expression)
@@ -322,4 +347,3 @@ def truthtable(expression):
     table = arrayToTable(evalExpression, tableFields)
     cleanScreen()
     print(table)
-
