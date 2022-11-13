@@ -2,6 +2,15 @@ import Modules.truthTables as MT
 import Modules.sets as MS
 import Modules.successions as MK
 import sys
+import os
+
+# Evaluate the OS where are running the file
+# then clean the screen
+def cleanScreen():
+    if os.name == 'posix':
+        os.system('clear')
+    elif os.name == 'nt':
+        os.system('cls')
 
 def printHelp():
     cleanScreen()

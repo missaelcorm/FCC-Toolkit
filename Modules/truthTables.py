@@ -1,13 +1,4 @@
-import os
 from prettytable import PrettyTable
-
-#Evaluate the OS where are running the file
-#then clean the screen
-def cleanScreen():
-    if os.name == 'posix':
-        os.system('clear')
-    elif os.name == 'nt':
-        os.system('cls')
 
 #Prints Help Info
 def printHelp():
