@@ -8,10 +8,8 @@ def getVars(exp):
     for letra in exp:
         if letra in vars:
             listVars.append(str(letra))
-        elif letra not in operators:
-            printHelp()
-            exit()
-    listVars =  list(dict.fromkeys(listVars))
+
+    listVars = list(dict.fromkeys(listVars))
 
     return listVars
 
