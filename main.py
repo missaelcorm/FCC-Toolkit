@@ -64,11 +64,12 @@ def main():
 #about usage and syntax using printHelp(), if not 
 #main() worked
 
-#"""
-try:
-    main()
-except:
-    printHelp()
-#"""
+if __name__ == '__main__':
+    #"""
+    try:
+        main()
+    except:
+        printHelp()
+    #"""
 
-#main()
+    #main()
