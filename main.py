@@ -1,5 +1,6 @@
 import Modules.truthTables as MT
 import Modules.sets as MS
+import Modules.successions as MK
 import sys
 
 def printHelp():
@@ -28,6 +29,8 @@ def main():
         MT.truthtable(ARGS[2])
     elif ARGS[1] == '-s':
         MS.sets(ARGS)
+    elif ARGS[1] == '-k':
+        MK.successions(ARGS)
     else:
         printHelp()
 
