@@ -7,12 +7,13 @@ COUNTER = 0
 DECIMALS = 2
 
 
+#This receives the arguments and assign the parameters to the variables
 def setARGS(ARGS):
     global DECIMALS
     lim_sup = None
     lim_inf = None
     expression = ''
-    for i in range(1, len(ARGS)):
+    for i in range(len(ARGS)):  #For every argument
         if ARGS[i] == '--limSup':
             lim_sup = int(ARGS[i+1])
         elif ARGS[i] == '--limInf':
@@ -27,26 +28,26 @@ def setARGS(ARGS):
 
     return expression, lim_inf, lim_sup
 
-
+#This replaces '^' to '**', because eval() just understand '**'.
 def formatSuccession(succession):
     return succession.replace('^', '**')
 
-
-def calcSucc(ak, lim_inf, lim_sup):
+#This do sum and multiplicaton recursively, and ends when lim_inf equals to lim_sup
+def calcSucc(succession, lim_inf, lim_sup):
     global SUM, MULT
     if lim_inf <= lim_sup:
-        k = lim_sup
-        R = eval(ak)
-        SUM += float(R)
-        MULT *= float(R)
-        RES.append(R)
+        k = lim_sup  #This is the actual value for 'k' that is defined inside 'succession' variable
+        R = eval(succession)  #Saves the result
+        SUM += float(R)  #Sums SUM and the actual result
+        MULT *= float(R)  #Multiply MULT with the actual result
+        RES.append(R)  #Appends the actual result to RES list
 
-        calcSucc(ak, lim_inf, lim_sup - 1)
+        calcSucc(succession, lim_inf, lim_sup - 1)  #Calls byself recursively doing k(n-1)
 
     return SUM, MULT
 
-
-def def_ak(ak, lim_inf, lim_sup):
+#This appends the operation using N instead of 'k' term, and k(n-C)
+def def_succession(succession, lim_inf, lim_sup):
     listTerms = []
     listkn = []
     count = 0
@@ -59,7 +60,7 @@ def def_ak(ak, lim_inf, lim_sup):
 
     return listTerms, listkn
 
-
+#This receives 3 lists, the operation, the 'k' term and the result, and returns a matrix
 def listsToMatrix(listTerms, listkn, RES):
     Matrix = []
     tempMatrix = []
@@ -72,7 +73,7 @@ def listsToMatrix(listTerms, listkn, RES):
 
     return Matrix
 
-
+#Receives the matrix, the succession, the sum and multiplication and returns a table
 def makeTable(matrix, succession, SUM_RES, MULT_RES):
     table = PT()
     table.field_names = [succession.replace('**', '^'), 'k(n-C)', "Result"]
@@ -80,7 +81,7 @@ def makeTable(matrix, succession, SUM_RES, MULT_RES):
     table.add_rows(matrix)
     table.add_row(['---', '---', '---'])
     table.add_row(['', 'SUMA:', format(round(SUM_RES, DECIMALS), f'.{DECIMALS}f')])
-    table.add_row(['', 'MULT:', f'{{:.{DECIMALS}e}}'.format(MULT_RES)])
+    table.add_row(['', 'MULT:', f'{{:.{DECIMALS}e}}'.format(MULT_RES)])  #This convert the result to scientific notation
 
     return table
 
