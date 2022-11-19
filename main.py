@@ -1,6 +1,7 @@
 import Modules.truthTables as MT
 import Modules.sets as MS
 import Modules.successions as MK
+import Modules.relationsAndFunctions as RF
 import sys
 import os
 
@@ -45,7 +46,11 @@ SUCESIONES:
     --limSup <numero>: Limite Superior
     Opcionales:
     --decimals <numero de decimales>: Ingresa el numero de decimales deseado (2 por default).
-    Ejemplo: python main.py -k --expression "1/k^2" --limInf 10 --limSup 30 --decimals 6''')
+    Ejemplo: python main.py -k --expression "1/k^2" --limInf 10 --limSup 30 --decimals 6
+RELACIONES Y FUNCIONES:
+    Ingresa un conjunto de pares ordenados.
+    -rf <CONJUNTO>: Ingresa el conjunto con sus pares ordenados.
+    Ejemplo: python main.py -rf {(1,2),(3,4),(5,6)}''')
 
 #Main() function where all magic happen
 def main():
@@ -57,6 +62,8 @@ def main():
         MS.sets(ARGS)
     elif ARGS[1] == '-k':
         MK.successions(ARGS)
+    elif ARGS[1] == '-rf':
+        RF.relationsAndFunctions(ARGS)
     else:
         printHelp()
 
