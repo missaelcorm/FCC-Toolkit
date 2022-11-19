@@ -1,11 +1,9 @@
 from prettytable import PrettyTable as PT
 
-RES = []
-SUM = 0
-MULT = 1
-COUNTER = 0
-DECIMALS = 2
-
+RES = []  #This will save all the results for the operation vor every 'k' value
+SUM = 0  #This will save the sum of the succession
+MULT = 1  #This will save the multiplication of the succession
+DECIMALS = 2  #This takes 2 as default decimals, just if user do not specify the N decimals
 
 #This receives the arguments and assign the parameters to the variables
 def setARGS(ARGS):
@@ -22,9 +20,6 @@ def setARGS(ARGS):
             expression = ARGS[i+1]
         elif ARGS[i] == '--decimals':
             DECIMALS = int(ARGS[i+1])
-
-    if lim_inf is None or lim_sup is None or expression == '':
-        print('Error')
 
     return expression, lim_inf, lim_sup
 
@@ -56,7 +51,7 @@ def def_succession(succession, lim_inf, lim_sup):
         count += 1
 
     for k in range(lim_sup, lim_inf-2, -1):
-        listTerms.append(ak.replace('k', str(k)).replace('**', '^'))
+        listTerms.append(succession.replace('k', str(k)).replace('**', '^'))
 
     return listTerms, listkn
 
@@ -92,7 +87,7 @@ def successions(ARGS):
 
     SUM_RES, MULT_RES = calcSucc(expression, lim_inf, lim_sup)
 
-    listTerms, listkn = def_ak(expression, lim_inf, lim_sup)
+    listTerms, listkn = def_succession(expression, lim_inf, lim_sup)
 
     matrix = listsToMatrix(listTerms, listkn, RES)
 
