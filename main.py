@@ -15,7 +15,9 @@ def cleanScreen():
 
 def printHelp():
     cleanScreen()
-    print('''Uso: python main.py [Modulo] [Opciones]>
+    print('''Uso: python main.py [Modulo] [Opciones]
+HELP:
+    -h/--help: Prints help Menu
 TABLAS DE VERDAD:
     Use unicamente estas variables: [p, q, r, s, t, u, w, x, y, z]
     -t <"expresion">: tablas de verdad
@@ -64,6 +66,8 @@ def main():
         MK.successions(ARGS)
     elif ARGS[1] == '-rf':
         RF.relationsAndFunctions(ARGS)
+    elif ARGS[1] in ['-h', '--help']:
+        printHelp()
     else:
         printHelp()
 
