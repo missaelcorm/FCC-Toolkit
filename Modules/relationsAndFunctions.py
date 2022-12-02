@@ -89,7 +89,7 @@ def relationsAndFunctions(ARGS):
     
     isFunc = isFunction(pairs)
          
-    print("Reflectividad:", Reflexive)
+    print("Reflexividad:", Reflexive)
     print("Simetría:", Symmetric)
     print("Transitividad:", Transitive)
     
